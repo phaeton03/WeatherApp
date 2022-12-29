@@ -1,0 +1,13 @@
+.map {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.divCity {
+    text-align: center;
+}
+
+.weather {
+    text-align: center;
+}

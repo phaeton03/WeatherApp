@@ -1,6 +1,7 @@
 import {getLocation, getLocationByAddress} from './geo.js'
 import {drawMap} from './weatherMap.js'
-
+import exportFunctionsWeatherMap from './weatherMap.js'
+import exportFunctions from "./geo.js";
 const weatherKey = '6075b4aa58b2a8c37abcb76de0cd3c35';
 const weatherUrl = (lat, lon) => `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherKey}&units=metric`;
 const CITY_STORAGE_LENGTH = 10;
@@ -22,34 +23,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
 export async function getWeather() {
 
-    const location = await getLocation();
+    const location = await exportFunctions.getLocation();
     const response = await fetch(weatherUrl(location.latitude, location.longitude));
 
     const result = await response.json();
     const divWeather = document.querySelector('.weather');
 
-    drawMap(location.latitude, location.longitude);
+    exportFunctionsWeatherMap.drawMap(location.latitude, location.longitude);
 
     divWeather.innerHTML = `Current city is ${result.name}.<br><br>Temperature is ${result.main.temp} C`;
 }
 
 export async function getWeatherInCity(city) {
-    console.log(city);
     if (!city) {
         return;
     }
-    console.log('getWeatherInCity');
-    const location = await getLocationByAddress(city);
-    console.log(location);
+
+    const location = await exportFunctions.getLocationByAddress(city);
     const response = await fetch(weatherUrl(location.latitude, location.longitude));
-    console.log(response);
     const result = await response.json();
-    console.log(result);
     const divWeather = document.querySelector('.weather');
 
-    setCityToLocalStorage(city);
+    exportFunctionsWeather.setCityToLocalStorage(city);
 
-    drawMap(location.latitude, location.longitude);
+    exportFunctionsWeatherMap.drawMap(location.latitude, location.longitude);
     divWeather.innerHTML = `The city is ${result.name}.<br><br>Temperature is ${result.main.temp} C`;
 }
 
@@ -77,4 +74,13 @@ export function clearCityLocalStorageAboveThreshold() {
         JSON.parse(cityStorage).pop();
     }
 }
+
+const exportFunctionsWeather = {
+    getWeather,
+    getWeatherInCity,
+    setCityToLocalStorage,
+    clearCityLocalStorageAboveThreshold
+};
+
+export default exportFunctionsWeather;
 

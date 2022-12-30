@@ -5,3 +5,9 @@ export function drawMap(lat, lon) {
 
     img.src = yandexMapUrl(lat, lon);
 }
+
+const exportFunctionsWeatherMap = {
+    drawMap
+};
+
+export default exportFunctionsWeatherMap;

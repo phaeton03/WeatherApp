@@ -245,7 +245,10 @@
     "yocto-queue": "^0.1.0"
   },
   "scripts": {
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "lint": "prettier --check . && eslint .",
+    "lint:fix": "prettier --write . && eslint . --fix",
+    "prepare": "husky install"
   },
   "jest": {
     "transform": {},
@@ -253,6 +256,10 @@
     "setupFiles": [
       "./src/setupJest.js"
     ]
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   },
   "author": "",
   "license": "ISC"

@@ -261,8 +261,8 @@
     "lint": "prettier --check . && eslint .",
     "lint:fix": "prettier --write . && eslint . --fix",
     "prepare": "husky install",
-    "dev": "webpack serve",
-    "build": "webpack --env production"
+    "dev": "npx webpack --mode development",
+    "build": "npx webpack --mode production"
   },
   "jest": {
     "transform": {},

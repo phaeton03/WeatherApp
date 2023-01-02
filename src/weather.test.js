@@ -1,18 +1,10 @@
 /**
  * @jest-environment jsdom
  */
-import * as geo from "./geo.js";
-jest.mock('./geo.js', () => {
-   return {
-       geo: {
-           getLocation: jest.fn()
-       }
-   }
-});
+
 import exportFunctions from "./geo.js";
 import exportFunctionsWeatherMap from "./weatherMap.js";
 import exportFunctionsWeather, {
-    clearCityLocalStorageAboveThreshold,
     getWeather,
     getWeatherInCity,
     setCityToLocalStorage
@@ -57,10 +49,10 @@ describe("getWeather", function () {
     });
 
     it("should show correct city name and its temp", async () => {
-        const getLocation = jest.spyOn(exportFunctions, "getLocation")
+        jest.spyOn(exportFunctions, "getLocation")
             .mockImplementation(() => GET_LOCATION_RESULT);
         fetch.mockResponseOnce(JSON.stringify(WEATHER_RESPONSE));
-        const drawMap = jest.spyOn(exportFunctionsWeatherMap, "drawMap");
+        jest.spyOn(exportFunctionsWeatherMap, "drawMap");
 
         await getWeather();
 
@@ -111,10 +103,10 @@ describe("getWeatherInCity", function () {
     });
 
     it("should show correct CITY name and its temp", async () => {
-        const getLocation = jest.spyOn(exportFunctions, "getLocationByAddress")
+        jest.spyOn(exportFunctions, "getLocationByAddress")
             .mockImplementation(() => GET_LOCATION_RESULT);
         fetch.mockResponseOnce(JSON.stringify(WEATHER_RESPONSE));
-        const drawMap = jest.spyOn(exportFunctionsWeatherMap, "drawMap");
+        jest.spyOn(exportFunctionsWeatherMap, "drawMap");
 
         await getWeatherInCity(CITY);
 
@@ -129,16 +121,7 @@ describe("setCityToLocalStorage", function () {
     const CITY_STORAGE = 'city';
     const CITY = "MOSCOW";
     const BERLIN = "BERLIN";
-    const GET_LOCATION_RESULT = {
-        latitude: 0.00,
-        longitude: 0.00
-    };
-    const WEATHER_RESPONSE = {
-        name: CITY,
-        main: {
-            temp: -1.15
-        }
-    }
+
     afterEach(() => {
         window.localStorage.clear();
     });
@@ -163,7 +146,7 @@ describe("setCityToLocalStorage", function () {
 
         const city = window.localStorage.getItem(CITY_STORAGE);
 
-        expect(JSON.parse(city).length).toBe(1);
+        expect(JSON.parse(city)).toHaveLength(1);
     });
 
     it("should add two different cities to localStorage", () => {
@@ -174,6 +157,6 @@ describe("setCityToLocalStorage", function () {
 
         const city = window.localStorage.getItem(CITY_STORAGE);
 
-        expect(JSON.parse(city).length).toBe(2);
+        expect(JSON.parse(city)).toHaveLength(2);
     });
 })

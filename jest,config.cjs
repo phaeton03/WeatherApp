@@ -52,6 +52,9 @@ module.exports = {
             statements: -10,
         },
     },
+    // moduleNameMapper: {
+    //     '\\.(css|less)$': 'identity-obj-proxy',
+    // },
 
     // A path to a custom dependency extractor
     // dependencyExtractor: undefined,
@@ -181,7 +184,9 @@ module.exports = {
     // timers: "real",
 
     // A map from regular expressions to paths to transformers
-    // transform: undefined,
+    //  transform: {
+    //      "^.+\\.css$": ["jest-transform-css", { modules: true }]
+    //  },
 
     // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
     // transformIgnorePatterns: [

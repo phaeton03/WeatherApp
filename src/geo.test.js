@@ -1,5 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
 import {getLocation, getLocationByAddress} from "./geo.js";
-
 
 describe("getLocation2", function () {
     const RESPONSE = {

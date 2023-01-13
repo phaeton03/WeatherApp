@@ -1,22 +1,26 @@
 import exportFunctionsWeatherMap from "./weatherMap.js";
 import exportFunctions from "./geo.js";
-import "../css/center.css";
+//import "../css/center.css";
 
 const weatherKey = "6075b4aa58b2a8c37abcb76de0cd3c35";
 const weatherUrl = (lat, lon) =>
   `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherKey}&units=metric`;
 const CITY_STORAGE_LENGTH = 10;
-
+const form = document.querySelector(".form");
 document.addEventListener("DOMContentLoaded", function () {
-  const button = document.querySelector(".button");
   const input = document.querySelector(".inputCity");
 
-  button.addEventListener("click", function () {
-    console.log(input.value);
+  form.addEventListener("submit", function (evt) {
+    evt.preventDefault();
+    console.log("hello");
+    console.log('input', input.value);
+
     getWeatherInCity(input.value);
   });
+
+
   if (!input.value) {
-    getWeather();
+   // getWeather();
   }
 });
 
@@ -35,6 +39,7 @@ export async function getWeather() {
 }
 
 export async function getWeatherInCity(city) {
+  console.log(city);
   if (!city) {
     return;
   }

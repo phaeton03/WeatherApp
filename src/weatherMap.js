@@ -4,6 +4,7 @@ export function drawMap(lat, lon) {
     const img = document.querySelector(".map");
 
     img.src = yandexMapUrl(lat, lon);
+    img.alt = 'map';
 }
 
 const exportFunctionsWeatherMap = {

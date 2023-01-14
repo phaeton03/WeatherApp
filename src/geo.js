@@ -1,9 +1,8 @@
 const key = "861d752669853754f1c06aea0f8c3adf52d14278";
 const geoKey = '00abd8eb67ad48caad2c12048f2161c6';
 
-const url = `https://api.getgeoapi.com/v2/ip/check?api_key=${key}&format=json`;
+const url =`https://api.getgeoapi.com/v2/ip/check?api_key=${key}&format=json`;
 const urlGeoAddress = (address) => `https://api.geoapify.com/v1/geocode/search?text=${address}&apiKey=${geoKey}`;
-//https://api.geoapify.com/v1/geocode/search?text=moscow&apiKey=00abd8eb67ad48caad2c12048f2161c6
 
 export async function getLocation() {
     const response = await fetch(url);
